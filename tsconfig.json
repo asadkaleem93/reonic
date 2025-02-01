@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "jsx": "react",
+      "baseUrl": "src",
+      "paths": {
+        "@components/*": ["components/*"]  // Optional aliasing
+      },
+      "moduleResolution": "node",
+      "resolveJsonModule": true,
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true
+    }
+  }
