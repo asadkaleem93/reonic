@@ -74,7 +74,7 @@ export const Form = ({
                     <Input
                       type={'number'}
                       value={field[0]}
-                      onChange={(e: any) =>
+                      onChange={(e) =>
                         setFieldValue(
                           `chargingPower[${index}][0]`,
                           Number(e.target.value),
@@ -87,7 +87,7 @@ export const Form = ({
                     <Input
                       type={'number'}
                       value={field[1]}
-                      onChange={(e: any) => {
+                      onChange={(e) => {
                         const alreadyCreated = values.chargingPower.reduce(
                           (acc, val, i) => {
                             if (i === index)

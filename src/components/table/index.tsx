@@ -17,13 +17,13 @@ export const Table = ({
           <tr>
             <Th style={{ width: '60px' }}></Th> {/* Empty top-left cell */}
             {aggregatedChargingValuesData[0].map((_, index) => (
-              <Th key={index}>{index + 1} h</Th>
+              <Th key={`${index}-th`}>{index + 1} h</Th>
             ))}
           </tr>
         </thead>
         <tbody>
           {aggregatedChargingValuesData.map((powers, i) => (
-            <tr>
+            <tr key={`${i}-tr`}>
               <Td>{values.chargingPower[i][0]} kW</Td>
               {powers.map((power, index) => (
                 <Td key={index}>{power}</Td>

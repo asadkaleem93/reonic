@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Formik } from 'formik';
 import { Column, DualAxes } from '@ant-design/plots';
 
@@ -19,6 +19,8 @@ import { Form } from './form';
 
 const chargingStationsAvailable = 20;
 
+// this component can be further broken down but since it is only 180-190 to lines of code.
+// readability will be better if we keep it in a single file.
 export const ParkingSpaces = () => {
   // we can keep these states in use reducer or context as well, but it is a single page solution
   // and after since fiber implementation in react there is bulk re-rendering (asynchronous) rather than
@@ -34,11 +36,17 @@ export const ParkingSpaces = () => {
   const [totalEnergyChargedPerDay, setTotalEnergyChargedPerDay] =
     useState<number>(0);
 
+  const simulationsSectionRef = useRef(null);
+
   // there is no point converting these into usecallbacks because in watcher array if we use peakpowerdemandchartdata or chargingeventchartdata
   // this constant will keep making new reference, because javascript/react compare array/object values by reference
   // ideal would be if we put check through length, but that is not possible here
   const peakDemandConfig = columnChartConfig(peakPowerDemandChartData);
   const config = dualAxisChartConfig(chargingEventChartData);
+
+  const scrollToSection = () => {
+    simulationsSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <>
@@ -101,6 +109,12 @@ export const ParkingSpaces = () => {
           setChargingEventChartData(chargingEventsChartData);
           setPeakPowerDemandChartData(peakPowerDemanChartData);
           setAggregatedChargingValuesData(aggregatedChargingValues);
+
+          // Move window to the simulations and setTimeout is used to wait for the simulations to be created and then move to the section
+          // time to wait is directly proportioned to amount of calculations/transformation we are doing but for this basic complexity 500ms should be ample
+          window.setTimeout(() => {
+            scrollToSection();
+          }, 500);
         }}
       >
         {({ handleSubmit, errors, values, setFieldValue, setFieldError }) => {
@@ -123,12 +137,16 @@ export const ParkingSpaces = () => {
                 arrivalMultiplier={values.arrivalMultiplier}
               />
               <>
-                {aggregatedChargingValuesData.length ||
-                chargingEventChartData.length ? (
-                  <Label fontSize="30px" fontWeight="700">
-                    Simulations
-                  </Label>
-                ) : null}
+                <Label
+                  fontSize="30px"
+                  fontWeight="700"
+                  ref={simulationsSectionRef}
+                >
+                  {aggregatedChargingValuesData.length ||
+                  chargingEventChartData.length
+                    ? 'Simulations'
+                    : null}
+                </Label>
                 {totalEnergyChargedPerDay ? (
                   <>
                     <Label fontSize="20px" fontWeight="700">
@@ -140,7 +158,7 @@ export const ParkingSpaces = () => {
                   {aggregatedChargingValuesData.length ? (
                     <SimulationsSectionWrapper style={{ display: 'grid' }}>
                       <Label fontSize="20px" fontWeight="700">
-                        Charging Event & Charing Consumed (kW)
+                        Aggregated Charing Values (kW)
                       </Label>
                       <Table
                         aggregatedChargingValuesData={
