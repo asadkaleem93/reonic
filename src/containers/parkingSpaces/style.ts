@@ -4,41 +4,47 @@ export const FormContainer = styled.div`
   width: 50%;
 `;
 
-export const SubmitButtonWrapper = styled.div`
-  display: flex;
-  justify-self: center;
-`;
-
-export const Table = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-  text-align: center;
-  table-layout: fixed;
-`;
-
-export const Th = styled.th`
-  border: 1px solid #ccc;
-  padding: 8px;
-  background-color: #f4f4f4;
-  width: 50px;
-`;
-
-export const Td = styled.td`
-  border: 1px solid #ccc;
-  padding: 8px;
-`;
-
-export const TableContainer = styled.div`
-  overflow-x: auto;
-`;
-
 export const ChartsWrapper = styled.div`
   width: 100%;
   display: flex;
-  align-self: center;
+  flex-direction: column;
   gap: 10px;
-  // @media (max-width: 1400px) {
-  //   flex-direction: column;
-  //   justify-content: center;
-  // }
+`;
+
+export const ChartWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const CharginPowerFieldsWrapper = styled.div`
+  padding: 10px;
+  border: 1px solid lightGrey;
+  border-radius: 10px;
+  margin: 10px 0px;
+`;
+
+export const CharginPowerFieldWrapper = styled.div`
+  margin-bottom: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  .remove-button {
+    cursor: pointer;
+  }
+  input {
+    width: 200px;
+  }
+  @media (max-width: 900px) {
+    flex-direction: column;
+    justify-self: flex-start;
+    width: 100%;
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 10px;
+    label {
+      width: unset;
+    }
+    input {
+      width: 90%;
+    }
+  }
 `;

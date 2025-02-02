@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useField, useFormikContext } from 'formik';
 
-import { Container, ErrorMessage, Input, Label } from './style';
+import { Container, ErrorMessage, Input } from './style';
+import { Label } from '../../globalStyles/styles';
 
 interface InputFieldProps {
   label: string;
